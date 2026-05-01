@@ -7,10 +7,15 @@ Hosted on GitHub Pages with a custom domain (`getvox.net`) registered through Na
 ## Files
 
 - `index.html` — the splash page (single file, inline CSS)
-- - `vox_logo.png` — the Vox wordmark
-  - - `CNAME` — tells GitHub Pages which custom domain to serve
-   
-    - ## Deploying changes
-   
-    - Edit `index.html`, commit, and push. GitHub Pages rebuilds automatically.
-    - 
+- `vox_logo.png` — the Vox wordmark
+- `CNAME` — tells GitHub Pages which custom domain to serve
+
+## Deploying changes
+
+Edit `index.html`, commit, and push. GitHub Pages rebuilds automatically.
+
+```sh
+git add .
+git commit -m "Update splash"
+git push
+```
