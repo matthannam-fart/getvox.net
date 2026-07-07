@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Join a Vox team</title>
+<style>
+  body { margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center;
+         background:#0e0f12; color:#e8e8ea; font:16px/1.5 "IBM Plex Sans","Helvetica Neue",sans-serif; }
+  .card { text-align:center; padding:48px 32px; max-width:420px; }
+  .logo { width:72px; height:72px; margin-bottom:20px; }
+  h1 { font-size:22px; font-weight:600; margin:0 0 6px; }
+  .code { font-family:"IBM Plex Mono",monospace; font-size:28px; letter-spacing:4px;
+          color:#39d4c0; margin:18px 0 26px; }
+  .btn { display:inline-block; background:#39d4c0; color:#08201c; font-weight:600;
+         padding:14px 34px; border-radius:10px; text-decoration:none; font-size:17px; }
+  .btn:hover { filter:brightness(1.1); }
+  .sub { color:#8b8d93; font-size:13px; margin-top:26px; }
+  .sub a { color:#39d4c0; text-decoration:none; }
+  .err { color:#e5484d; }
+</style>
+</head>
+<body>
+<div class="card">
+  <img class="logo" src="/vox_logo.png" alt="Vox">
+  <h1>You’re invited to a Vox team</h1>
+  <div id="code" class="code"></div>
+  <a id="open" class="btn" href="#">Open in Vox</a>
+  <p class="sub">Nothing happening? You may not have Vox installed yet —
+     <a href="https://getvox.net">get Vox for Mac</a>, then click the invite link again.</p>
+</div>
+<script>
+  // Code arrives as ?c=VXT7W44 (also accepts ?code= or #VXT7W44).
+  var params = new URLSearchParams(location.search);
+  var raw = params.get("c") || params.get("code") || location.hash.slice(1) || "";
+  // Same sanitization the app applies: A–Z, 0–9, dash, max 10.
+  var code = raw.toUpperCase().replace(/[^A-Z0-9-]/g, "").slice(0, 10);
+
+  var codeEl = document.getElementById("code");
+  var openEl = document.getElementById("open");
+
+  if (code) {
+    codeEl.textContent = code;
+    var voxUrl = "vox://join/" + code;
+    openEl.href = voxUrl;
+    // Try the app straight away; the button stays as the manual fallback.
+    setTimeout(function () { location.href = voxUrl; }, 400);
+  } else {
+    codeEl.textContent = "missing invite code";
+    codeEl.className = "code err";
+    openEl.style.display = "none";
+  }
+</script>
+</body>
+</html>
