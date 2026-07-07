@@ -41,10 +41,9 @@
 
   if (code) {
     codeEl.textContent = code;
-    var voxUrl = "vox://join/" + code;
-    openEl.href = voxUrl;
-    // Try the app straight away; the button stays as the manual fallback.
-    setTimeout(function () { location.href = voxUrl; }, 400);
+    // No auto-launch: browsers block external-protocol navigation without
+    // a user gesture (and can show an error page). The click is the gesture.
+    openEl.href = "vox://join/" + code;
   } else {
     codeEl.textContent = "missing invite code";
     codeEl.className = "code err";
